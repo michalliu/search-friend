@@ -1,6 +1,6 @@
 {
 	"name": "搜索助手",
-	"version": "1.3",
+	"version": "1.4",
 	"manifest_version": 2,
 	"description": "谷歌搜索增强与优化工具",
 	"content_scripts":[{
