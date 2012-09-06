@@ -9,7 +9,7 @@
 		"js":["/scripts/sizzle.js","/scripts/disablejunction.js"]
 	},{
 		"run_at":"document_start",
-		"matches":["*://www.google.com.hk/*sourceid=chrome*"],
-		"js":["/scripts/chrome.js"]
+		"matches":["http://www.google.com.hk/search*"],
+		"js":["/scripts/safesearch.js"]
 	}]
 }
