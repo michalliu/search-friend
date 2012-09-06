@@ -7,9 +7,16 @@
 		"run_at":"document_end",
 		"matches":["*://www.google.com/*","*://www.google.com.hk/*"],
 		"js":["/scripts/sizzle.js","/scripts/disablejunction.js"]
-	},{
+	},
+	{
+		"run_at":"document_start",
+		"matches":["http://www.google.com/reader*"],
+		"js":["/scripts/reader.js"]
+	}
+	/*
+	{
 		"run_at":"document_start",
 		"matches":["http://www.google.com.hk/search*"],
 		"js":["/scripts/safesearch.js"]
-	}]
+	}*/]
 }
