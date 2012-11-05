@@ -1,16 +1,41 @@
 {
-	"name": "搜索助手",
-	"version": "1.5",
-	"manifest_version": 2,
-	"description": "谷歌搜索增强与优化工具",
-	"content_scripts":[{
-		"run_at":"document_end",
-		"matches":["*://www.google.com/*","*://www.google.com.hk/*"],
-		"js":["/scripts/sizzle.js","/scripts/disablejunction.js"]
-	},
-	{
-		"run_at":"document_start",
-		"matches":["http://www.google.com/reader*","http://google.com/reader*"],
-		"js":["/scripts/reader.js"]
-	}]
+  "name": "谷歌搜索助手",
+  "version": "1.6",
+  "manifest_version": 2,
+  "description": "谷歌搜索增强与优化工具",
+  "permissions": [
+    "webRequest",
+    "http://www.google.com.hk/search*",
+	"tabs",
+	"https://www.google.com.hk/*"
+  ],
+  "background": {
+    "scripts": [
+      "/scripts/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "run_at": "document_end",
+      "matches": [
+        "*://www.google.com/*",
+        "*://www.google.com.hk/*"
+      ],
+      "js": [
+        "/scripts/sizzle.js",
+        "/scripts/disablejunction.js"
+      ]
+    },
+    {
+      "run_at": "document_start",
+      "matches": [
+        "http://www.google.com/reader*",
+        "http://google.com/reader*"
+      ],
+      "js": [
+        "/scripts/reader.js"
+      ]
+    }
+  ]
 }
+
