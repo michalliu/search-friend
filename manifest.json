@@ -1,13 +1,13 @@
 {
   "name": "谷歌搜索助手",
-  "version": "1.6",
+  "version": "2.0",
   "manifest_version": 2,
   "description": "谷歌搜索增强与优化工具",
   "permissions": [
     "webRequest",
     "http://www.google.com.hk/search*",
-	"tabs",
-	"https://www.google.com.hk/*"
+    "tabs",
+    "https://www.google.com.hk/*"
   ],
   "background": {
     "scripts": [
