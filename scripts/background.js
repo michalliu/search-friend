@@ -34,17 +34,10 @@ chrome.webRequest.onErrorOccurred.addListener(
   function(details) {
       var handledErrors = ['net::ERR_CONNECTION_RESET', 'net::ERR_EMPTY_RESPONSE'];
       var q, tabid;
-      var automaticRedirectTipsShown = localStorage.getItem('automaticRedirectTipsShown');
       if (handledErrors.indexOf(details.error) !== -1) {
           q = decodeURIComponent(parseURL(details.url).params.q);
           tabid = details.tabId;
-          chrome.tabs.update(tabid,{url: generateSafeGoogleSearchURL(q)}, function () {
-              if (!automaticRedirectTipsShown) {
-                  try {
-                      chrome.tabs.executeScript(tabid, { file: '/scripts/showtip.js'});
-                  } catch (ex) {}
-              }
-          });
+          chrome.tabs.update(tabid,{url: generateSafeGoogleSearchURL(q)});
       }
   },
   {urls: ['<all_urls>'],types:['main_frame']});
