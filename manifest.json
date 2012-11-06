@@ -6,9 +6,7 @@
   "permissions": [
     "webRequest",
     "http://www.google.com/*",
-    "http://www.google.com.hk/*",
-    "tabs",
-    "https://www.google.com.hk/*"
+    "http://www.google.com.hk/*"
   ],
   "background": {
     "scripts": [
@@ -19,22 +17,14 @@
     {
       "run_at": "document_end",
       "matches": [
-        "*://www.google.com/*",
-        "*://www.google.com.hk/*"
+        "*://www.google.com/search*",
+        "*://www.google.com.hk/search*",
+        "*://www.google.com/",
+        "*://www.google.com.hk/"
       ],
       "js": [
         "/scripts/sizzle.js",
-        "/scripts/disablejunction.js"
-      ]
-    },
-    {
-      "run_at": "document_start",
-      "matches": [
-        "http://www.google.com/reader*",
-        "http://google.com/reader*"
-      ],
-      "js": [
-        "/scripts/reader.js"
+        "/scripts/searchResultOptimizer.js"
       ]
     }
   ]
