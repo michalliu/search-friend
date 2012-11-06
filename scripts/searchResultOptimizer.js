@@ -25,6 +25,6 @@ document.body.addEventListener('DOMSubtreeModified', function () {
 
     }
 
-	console.log('subtreemodefied')
+	//console.log('subtreemodefied')
 
 });
