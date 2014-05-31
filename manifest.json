@@ -5,8 +5,8 @@
   "description": "谷歌搜索增强与优化工具",
   "permissions": [
     "webRequest",
-    "http://www.google.com/*",
-    "http://www.google.com.hk/*",
+    "*://www.google.com/*",
+    "*://www.google.com.hk/*",
     "notifications"
   ],
   "background": {
@@ -20,8 +20,7 @@
       "matches": [
         "*://www.google.com/search*",
         "*://www.google.com.hk/search*",
-        "*://www.google.com/",
-        "*://www.google.com.hk/"
+        "*://203.208.46.200/search*"
       ],
       "js": [
         "/scripts/sizzle.js",
