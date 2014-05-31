@@ -33,11 +33,14 @@ function showNotification(title, message, buttons, notificationId) {
 	}
 }
 
+function isBlockNotificationDisabled() {
+	return localStorage.getItem('disableBlockNotification') == 1;
+}
+
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
-	var blockNotificationDisabled = localStorage.getItem('disableBlockNotification');
 	var tabid = details.tabId;
 	var url = details.url;
-	if(blockNotificationDisabled){
+	if(isBlockNotificationDisabled()){
 		chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
 	}
 },{
@@ -53,18 +56,16 @@ chrome.webRequest.onErrorOccurred.addListener(
 	'net::ERR_SOCKET_NOT_CONNECTED',
 	'net::ERR_CONNECTION_TIMED_OUT'];
 		var tabid,url;
-		var blockNotificationDisabled;
 		if (blockingErrors.indexOf(details.error) !== -1) {
 			// We were blocked
 			tabid = details.tabId;
 			url = details.url;
-			blockNotificationDisabled = localStorage.getItem('disableBlockNotification');
 			chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
-			if (!blockNotificationDisabled) {
+			if (!isBlockNotificationDisabled()) {
 				showNotification(null,'您刚才使用谷歌服务时发生异常, 助手已尽力帮你解决。如仍不能访问，请使用代理软件或vpn访问。',[{
 					"title": "点击此处以后不再出现此提示，并且以后自动解决此类问题"
 				}],NOTIFICATION_TYPE.BLOCKED+Math.random());
-				localStorage.setItem('disableBlockNotification',1); }
+			}
 		}
 	},
 	{
