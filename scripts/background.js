@@ -73,7 +73,15 @@ chrome.webRequest.onErrorOccurred.addListener(
 			tabid = details.tabId;
 			url = details.url;
 			if (isUrlShouldFix(url)) {
-				chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
+				if (details.error !== blockingErrors[2]){
+					chrome.tabs.remove(tabid, function () {
+						chrome.tabs.create({
+							url: resolveProblemFor(url)
+						});
+					});
+				} else {
+					chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
+				}
 				if (!isBlockNotificationDisabled()) {
 					showNotification(null,
 						'您刚才使用谷歌服务时发生异常, 助手已尽力帮你解决。如仍不能访问，请使用代理软件或vpn访问。',
