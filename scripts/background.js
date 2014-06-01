@@ -4,6 +4,9 @@
 // https://developer.chrome.com/extensions/webRequest
 // https://developer.chrome.com/extensions/tabs
 
+// this script only runs under
+// "*://www.google.com/*",
+// "*://www.google.com.hk/*",
 var NOTIFICATION_TYPE={
 	BLOCKED: "block"
 };
@@ -13,6 +16,8 @@ function resolveProblemFor(url){
 	return ret;
 }
 
+// don't match unsearch google urls, like
+// google.com/_/chrome/newtab
 function isUrlShouldFix(url){
 	return url.match(/https?:\/\/(.*)?\/search(.*)/);
 }
