@@ -2,6 +2,7 @@
 
 // https://developer.chrome.com/extensions/notifications
 // https://developer.chrome.com/extensions/webRequest
+// https://developer.chrome.com/extensions/tabs
 
 var NOTIFICATION_TYPE={
 	BLOCKED: "block"
@@ -10,6 +11,10 @@ var NOTIFICATION_TYPE={
 function resolveProblemFor(url){
 	var ret=url.replace(/(https?):\/\/(.*?)\/(.*)/,"http://203.208.46.200/$3");
 	return ret;
+}
+
+function isUrlShouldFix(url){
+	return url.match(/https?:\/\/(.*)?\/search(.*)/);
 }
 
 function showNotification(title, message, buttons, notificationId) {
@@ -40,8 +45,10 @@ function isBlockNotificationDisabled() {
 chrome.webRequest.onBeforeRequest.addListener(function (details) {
 	var tabid = details.tabId;
 	var url = details.url;
-	if(isBlockNotificationDisabled()){
-		chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
+	if (isUrlShouldFix(url)) {
+		if(isBlockNotificationDisabled()){
+			chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
+		}
 	}
 },{
 		urls: ['<all_urls>'],
@@ -60,11 +67,16 @@ chrome.webRequest.onErrorOccurred.addListener(
 			// We were blocked
 			tabid = details.tabId;
 			url = details.url;
-			chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
-			if (!isBlockNotificationDisabled()) {
-				showNotification(null,'您刚才使用谷歌服务时发生异常, 助手已尽力帮你解决。如仍不能访问，请使用代理软件或vpn访问。',[{
-					"title": "点击此处以后不再出现此提示，并且以后自动解决此类问题"
-				}],NOTIFICATION_TYPE.BLOCKED+Math.random());
+			if (isUrlShouldFix(url)) {
+				chrome.tabs.update(tabid,{url: resolveProblemFor(url)});
+				if (!isBlockNotificationDisabled()) {
+					showNotification(null,
+						'您刚才使用谷歌服务时发生异常, 助手已尽力帮你解决。如仍不能访问，请使用代理软件或vpn访问。',
+						[{
+							"title": "点击此处以后不再出现此提示，并且以后自动解决此类问题"
+						}],
+						NOTIFICATION_TYPE.BLOCKED+Math.random());
+				}
 			}
 		}
 	},
