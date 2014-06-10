@@ -12,7 +12,7 @@ var NOTIFICATION_TYPE={
 };
 
 function resolveProblemFor(url){
-	var ret=url.replace(/(https?):\/\/(.*?)\/(.*)/,"http://203.208.46.200/$3");
+	var ret=url.replace(/(https?):\/\/(.*?)\/(.*)/,"https://203.208.46.200/$3");
 	return ret;
 }
 
@@ -89,6 +89,11 @@ chrome.webRequest.onErrorOccurred.addListener(
 							"title": "点击此处以后不再出现此提示，并且以后自动解决此类问题"
 						}],
 						NOTIFICATION_TYPE.BLOCKED+Math.random());
+
+					// auto disable notification on old chrome, because there is no clickable area available
+					if(window.webkitNotifications){
+						localStorage.setItem('disableBlockNotification',1);
+					}
 				}
 			}
 		}
