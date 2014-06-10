@@ -27,7 +27,8 @@ function modifyLink() {
 
 	// image search
 	links = Sizzle(".irc_vpl.irc_but"). // Visit Page Button
-		concat(Sizzle(".irc_fsl.irc_but")); // Visit Image Button
+		concat(Sizzle(".irc_fsl.irc_but")).
+		concat(Sizzle(".irc_mutc .irc_mutl")); // Visit Image Button
 
 	if(links.length >= 0) {
 		for (i=0;i<links.length;i++){
