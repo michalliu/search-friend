@@ -12,7 +12,7 @@ var NOTIFICATION_TYPE={
 };
 
 function resolveProblemFor(url){
-	var ret=url.replace(/(https?):\/\/(.*?)\/(.*)/,"https://203.208.46.200/$3");
+	var ret=url.replace(/(https?):\/\/(.*?)\/(.*)/,"https://61.219.131.88/$3");
 	return ret;
 }
 

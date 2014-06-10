@@ -1,6 +1,6 @@
 {
   "name": "谷歌搜索助手",
-  "version": "3.6",
+  "version": "3.7",
   "manifest_version": 2,
   "description": "谷歌搜索增强与优化工具",
   "permissions": [
@@ -20,12 +20,24 @@
       "matches": [
         "*://www.google.com/search*",
         "*://www.google.com.hk/search*",
-        "*://203.208.46.200/search*"
+        "*://61.219.131.88/search*"
       ],
       "js": [
         "/scripts/sizzle.js",
         "/scripts/searchResultOptimizer.js"
       ]
-    }
+    },{
+      "run_at": "document_end",
+      "matches": [
+        "*://www.google.com/blank.html",
+        "*://www.google.com.hk/blank.html",
+        "*://61.219.131.88/blank.html"
+      ],
+      "js": [
+        "/scripts/sizzle.js",
+        "/scripts/searchResultOptimizerImageFrame.js"
+      ],
+      "all_frames":true
+	}
   ]
 }
